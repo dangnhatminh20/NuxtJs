@@ -38,6 +38,7 @@
 
 import LabeledInput from "~/components/commoms/LabeledInput.vue";
 import Button from "~/components/commoms/Button.vue";
+import {mapActions} from "vuex";
 
 export default {
   name: "Login_Auth_Pages",
@@ -52,6 +53,18 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
+=======
+    ...mapActions({
+      "login" : "auth/login" //Tim action ben trong auth de login
+    }),
+    doSubmit(){
+      this.login({
+        "username": this.username,
+        "password": this.password
+      });
+    },
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     onUserChange(username){
       this.username= username;
     },

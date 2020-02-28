@@ -8,10 +8,18 @@ import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData, normalizeError } from './utils'
+<<<<<<< HEAD
 
 /* Plugins */
 
 import nuxt_plugin_bootstrapvue_00da9406 from 'nuxt_plugin_bootstrapvue_00da9406' // Source: .\\bootstrap-vue.js (mode: 'all')
+=======
+import { createStore } from './store.js'
+
+/* Plugins */
+
+import nuxt_plugin_bootstrapvue_7f2228fa from 'nuxt_plugin_bootstrapvue_7f2228fa' // Source: ./bootstrap-vue.js (mode: 'all')
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -45,11 +53,26 @@ const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearC
 async function createApp (ssrContext) {
   const router = await createRouter(ssrContext)
 
+<<<<<<< HEAD
+=======
+  const store = createStore(ssrContext)
+  // Add this.$router into store actions/mutations
+  store.$router = router
+
+  // Fix SSR caveat https://github.com/nuxt/nuxt.js/issues/3757#issuecomment-414689141
+  const registerModule = store.registerModule
+  store.registerModule = (path, rawModule, options) => registerModule.call(store, path, rawModule, Object.assign({ preserveState: process.client }, options))
+
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   // Create Root instance
 
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
+<<<<<<< HEAD
+=======
+    store,
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     router,
     nuxt: {
       defaultTransition,
@@ -91,6 +114,12 @@ async function createApp (ssrContext) {
     ...App
   }
 
+<<<<<<< HEAD
+=======
+  // Make app available into store via this.app
+  store.app = app
+
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   const next = ssrContext ? ssrContext.next : location => app.router.push(location)
   // Resolve route
   let route
@@ -103,6 +132,10 @@ async function createApp (ssrContext) {
 
   // Set context to app.context
   await setContext(app, {
+<<<<<<< HEAD
+=======
+    store,
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     route,
     next,
     error: app.nuxt.error.bind(app),
@@ -125,6 +158,12 @@ async function createApp (ssrContext) {
     // Add into app
     app[key] = value
 
+<<<<<<< HEAD
+=======
+    // Add into store
+    store[key] = app[key]
+
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     // Check if plugin not already installed
     const installKey = '__nuxt_' + key + '_installed__'
     if (Vue[installKey]) {
@@ -143,10 +182,24 @@ async function createApp (ssrContext) {
     })
   }
 
+<<<<<<< HEAD
   // Plugin execution
 
   if (typeof nuxt_plugin_bootstrapvue_00da9406 === 'function') {
     await nuxt_plugin_bootstrapvue_00da9406(app.context, inject)
+=======
+  if (process.client) {
+    // Replace store state before plugins execution
+    if (window.__NUXT__ && window.__NUXT__.state) {
+      store.replaceState(window.__NUXT__.state)
+    }
+  }
+
+  // Plugin execution
+
+  if (typeof nuxt_plugin_bootstrapvue_7f2228fa === 'function') {
+    await nuxt_plugin_bootstrapvue_7f2228fa(app.context, inject)
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   }
 
   // If server-side, wait for async component to be resolved first
@@ -167,6 +220,10 @@ async function createApp (ssrContext) {
   }
 
   return {
+<<<<<<< HEAD
+=======
+    store,
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     app,
     router
   }

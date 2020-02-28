@@ -1,76 +1,47 @@
-const express = require('express');
-const router = express.Router();
-const bodyParser = require('body-parser');
+var express = require('express');
+var router = express.Router();
+//Lets load the mongoose module in our program
+var mongoose = require('mongoose');
 
-router.get('/login', (req, res) => {
-    console.log('Params: ', req.params);
-    console.log('Query: ', req.query);
+const databaseUrl = 'mongodb://localhost:27017/b12pro';
+//Lets connect to our database using the DB server URL.
+mongoose.connect(databaseUrl);
+
+//router.get("path", (callback) => {})
+ 
+// router.get("/login", (req, res) => {
+//   console.log('Param: ', req.params);
+//   console.log('Query: ', req.query);
+//   res.send('This is login Api');
+// });
+
+router.post("/login", (req, res) => {
+  if(req.body.username == "dangnhatminh20" && req.body.password == "123456"){
+    res.json({
+      "username": "Nhật Minh",
+      "age": 24,
+      "code": 1 //thanh cong
+    })
+  }else{
+    res.json({
+      "message": "Sai tài khoản hoặc mật khẩu!",
+      "code": 2 //that bai
+    })
+  }
 });
 
-router.get('/todos', (req, res) => {
-    res.json(todos);
+router.get("/logout", (req, res) => {
+  res.send('This is logout Api');
 });
 
-router.get('/todos/:id', function (req, res) {
-    // params được gửi thuộc kiểu string do đó phải convert params về kiểu integer 
-    var todoId = parseInt(req.params.id, 10);
-    var matchedTodo;
-    //console.log('Params: ', req.params);
-    // duyệt từng phần tử trong todos
-    todos.forEach(function (todo) {
-        if (todoId == todo.id) {
-            matchedTodo = todo;
-        }
-    });
-    // nếu tồn tại kết quả thì trả về dưới dạng json nếu không trả về status 404
-    if (matchedTodo) {
-        res.json(matchedTodo);
-    } else {
-        res.status(404).send();
-    }
-});
-//Set id 
-var todoNextId = 4;
-
-router.use(bodyParser.json());
-
-router.post('/todos', function (req, res) {
-    //body của req
-    var body = req.body;
-
-    body.id = todoNextId++;
-    todos.push(body);
-    console.log(body.id);
-    res.json(body);
-});
-
-router.delete('/todos/:id', function(req, res){
-    var todoId = parseInt(req.params.id, 10);
-    var matchedTodo;
-    todos.forEach(function (todo) {
-        if (todoId == todo.id) {
-            
-        }
-    });
-    if (matchedTodo) {
-        res.json(matchedTodo);
-    } else {
-        res.status(404).send();
-    }
+router.get("/user", async (req, res) => {
+  try {
+      var result = await mongoose.find().exec();
+      console.log(result)
+      res.send(result);
+  } catch (error) {
+      res.status(500).send(error);
+  }
 });
 
 module.exports = router;
-
-var todos = [{
-    id: 1,
-    description: 'Build a simple API - nodejs',
-    completed: false
-}, {
-    id: 2,
-    description: 'Go to T-beer - team building',
-    completed: false
-}, {
-    id: 3,
-    description: 'Feed the dog ',
-    completed: true
-}];

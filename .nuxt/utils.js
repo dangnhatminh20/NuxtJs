@@ -129,7 +129,11 @@ export async function setContext (app, context) {
       isDev: true,
       isHMR: false,
       app,
+<<<<<<< HEAD
 
+=======
+      store: app.store,
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
       payload: context.payload,
       error: context.error,
       base: '/',

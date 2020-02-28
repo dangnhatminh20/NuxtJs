@@ -8,7 +8,7 @@
 </template>
 
 <script>
-export default {
-  transition: 'bounce'
-}
+  export default {
+    transition: 'bounce'
+  }
 </script>

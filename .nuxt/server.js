@@ -60,9 +60,15 @@ export default async (ssrContext) => {
   // Used for beforeNuxtRender({ Components, nuxtState })
   ssrContext.beforeRenderFns = []
   // Nuxt object (window{{globals.context}}, defaults to window.__NUXT__)
+<<<<<<< HEAD
   ssrContext.nuxt = { layout: 'default', data: [], error: null, serverRendered: true }
   // Create the app definition and the instance (created for each request)
   const { app, router } = await createApp(ssrContext)
+=======
+  ssrContext.nuxt = { layout: 'default', data: [], error: null, state: null, serverRendered: true }
+  // Create the app definition and the instance (created for each request)
+  const { app, router, store } = await createApp(ssrContext)
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   const _app = new Vue(app)
 
   // Add meta infos (used in renderer.js)
@@ -74,6 +80,14 @@ export default async (ssrContext) => {
   const beforeRender = async () => {
     // Call beforeNuxtRender() methods
     await Promise.all(ssrContext.beforeRenderFns.map(fn => promisify(fn, { Components, nuxtState: ssrContext.nuxt })))
+<<<<<<< HEAD
+=======
+
+    ssrContext.rendered = () => {
+      // Add the state from the vuex store
+      ssrContext.nuxt.state = store.state
+    }
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   }
 
   const renderErrorPage = async () => {
@@ -98,6 +112,28 @@ export default async (ssrContext) => {
   const Components = getMatchedComponents(router.match(ssrContext.url))
 
   /*
+<<<<<<< HEAD
+=======
+  ** Dispatch store nuxtServerInit
+  */
+  if (store._actions && store._actions.nuxtServerInit) {
+    try {
+      await store.dispatch('nuxtServerInit', app.context)
+    } catch (err) {
+      console.debug('Error occurred when calling nuxtServerInit: ', err.message)
+      throw err
+    }
+  }
+  // ...If there is a redirect or an error, stop the process
+  if (ssrContext.redirected) {
+    return noopApp()
+  }
+  if (ssrContext.nuxt.error) {
+    return renderErrorPage()
+  }
+
+  /*
+>>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
   ** Call global middleware (nuxt.config.js)
   */
   let midd = []

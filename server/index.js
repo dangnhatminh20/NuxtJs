@@ -1,15 +1,18 @@
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-const app = express()
+var app = express()
+
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
+app.use(require("body-parser").json())
 async function start () {
-  app.use('/abc', require('./router/auth.js'))
-
+  //My code
+  app.use("/api/auth", require("./router/auth.js"))
+  
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
 
