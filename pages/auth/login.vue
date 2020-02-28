@@ -53,8 +53,6 @@ export default {
     }
   },
   methods: {
-<<<<<<< HEAD
-=======
     ...mapActions({
       "login" : "auth/login" //Tim action ben trong auth de login
     }),
@@ -64,7 +62,6 @@ export default {
         "password": this.password
       });
     },
->>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
     onUserChange(username){
       this.username= username;
     },
