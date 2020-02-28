@@ -16,14 +16,12 @@ export default {
     },
     data() {
         return {
-            username: "",
-            password: "",
             content: ""
         }
     },
     methods: {
         onChange(){
-            console.log(this.content);
+            this.onTextChange(this.content);
         }
     }
 }

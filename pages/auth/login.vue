@@ -6,8 +6,8 @@
         <div>
           <b-tabs content-class="mt-3">
             <b-tab title="Login" active>
-              <LabeledInput :label="'Username'" :id="'username'"/>
-              <LabeledInput :label="'Password'" :id="'password'"/>
+              <LabeledInput :label="'Username'" :id="'username'" :onTextChange="onUserChange"/>
+              <LabeledInput :label="'Password'" :id="'password'" :onTextChange="onPasswordChange"/>
               <div class="checkbox">
                 <label>
                   <input type="checkbox" /> Remember me
@@ -37,6 +37,7 @@
 <script>
 import LabeledInput from "~/components/commoms/LabeledInput.vue";
 import Button from "~/components/commoms/Button.vue";
+import {mapActions} from "vuex";
 
 export default {
   name: "Login_Auth_Pages",
@@ -51,13 +52,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      "login" : "auth/login" //Tim action ben trong auth de login
+    }),
     doSubmit(){
-      console.log('Method Active');
+      this.login({
+        "username": this.username,
+        "password": this.password
+      });
     },
     onUserChange(username){
       this.username= username;
     },
-    onPasswordChage(password){
+    onPasswordChange(password){
       this.password= password;
     }
   }
