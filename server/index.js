@@ -8,6 +8,8 @@ const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
 async function start () {
+  app.use('/abc', require('./router/auth.js'))
+
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
 

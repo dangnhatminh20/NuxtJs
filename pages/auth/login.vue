@@ -6,15 +6,15 @@
         <div>
           <b-tabs content-class="mt-3">
             <b-tab title="Login" active>
-              <LabeledInput :label="'Username'" :id="'username'"/>
-              <LabeledInput :label="'Password'" :id="'password'"/>
+              <LabeledInput :label="'Username'" :id="'username'" :type="'text'" :onTextChange="onUserChange"/>
+              <LabeledInput :label="'Password'" :id="'password'" :type="'password'" :onTextChange="onPasswordChange"/>
               <div class="checkbox">
                 <label>
                   <input type="checkbox" /> Remember me
                 </label>
               </div>
-              <!-- <Button :nameButton="'Login'"/> -->
-              <button @click="doSubmit" type="btn" class="btn btn-primary pl-3">
+              <!-- <Button :nameButton="'Login'" @click="checkUser"/> -->
+              <button @click="checkUser" type="btn" class="btn btn-primary pl-3">
                 Login
               </button>
               <button type="submit" class="btn btn-danger pl-3">
@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+
 import LabeledInput from "~/components/commoms/LabeledInput.vue";
 import Button from "~/components/commoms/Button.vue";
 
@@ -47,18 +48,28 @@ export default {
   data() {
     return {
       username: null,
-      password: null 
+      password: null
     }
   },
   methods: {
-    doSubmit(){
-      console.log('Method Active');
-    },
     onUserChange(username){
       this.username= username;
     },
-    onPasswordChage(password){
+    onPasswordChange(password){
       this.password= password;
+    },
+    checkUser(){
+      console.log(this.username, this.password);
+      if(this.username != "" && this.password != "") {
+          if(this.username == "dangnhatminh20" && this.password == "123456") {
+            this.$emit("authenticated", true);
+            this.$router.replace({ name: "secure" });
+          } else {
+            console.log("The username and / or password is incorrect");
+          }
+      } else {
+        console.log("A username and password must be present");
+      }
     }
   }
 };

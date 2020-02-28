@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label for="username">{{label}}</label>
-        <input v-bind:id="id" v-model="content" type="username" class="form-control" @input="onChange"/>
+        <input v-bind:id="id" v-bind:type="type" class="form-control" @input="onChange" v-model="content"/>
     </div>
 </template>
 
@@ -16,14 +16,12 @@ export default {
     },
     data() {
         return {
-            username: "",
-            password: "",
             content: ""
         }
     },
     methods: {
         onChange(){
-            console.log(this.content);
+            this.onTextChange(this.content)
         }
     }
 }

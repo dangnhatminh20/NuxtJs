@@ -9,6 +9,9 @@ export default {
     name: 'Button_Commoms_Components',
     props: {
         nameButton: String
+    },
+    methods: {
+        
     }
 }
 </script>
