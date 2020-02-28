@@ -14,7 +14,7 @@
                 </label>
               </div>
               <!-- <Button :nameButton="'Login'" @click="checkUser"/> -->
-              <button @click="checkUser" type="btn" class="btn btn-primary pl-3">
+              <button @click="doSubmit" type="btn" class="btn btn-primary pl-3">
                 Login
               </button>
               <button type="submit" class="btn btn-danger pl-3">
@@ -68,19 +68,6 @@ export default {
     onPasswordChange(password){
       this.password= password;
     },
-    checkUser(){
-      console.log(this.username, this.password);
-      if(this.username != "" && this.password != "") {
-          if(this.username == "dangnhatminh20" && this.password == "123456") {
-            this.$emit("authenticated", true);
-            this.$router.replace({ name: "secure" });
-          } else {
-            console.log("The username and / or password is incorrect");
-          }
-      } else {
-        console.log("A username and password must be present");
-      }
-    }
   }
 };
 

@@ -8,7 +8,6 @@ import {
 
 import NuxtLoading from './components/nuxt-loading.vue'
 
-<<<<<<< HEAD
 import '..\\node_modules\\bootstrap\\dist\\css\\bootstrap.css'
 
 import '..\\node_modules\\bootstrap-vue\\dist\\bootstrap-vue.css'
@@ -16,15 +15,6 @@ import '..\\node_modules\\bootstrap-vue\\dist\\bootstrap-vue.css'
 import '..\\assets\\main.css'
 
 import _6f6c098b from '..\\layouts\\default.vue'
-=======
-import '../node_modules/bootstrap/dist/css/bootstrap.css'
-
-import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css'
-
-import '../assets/main.css'
-
-import _6f6c098b from '../layouts/default.vue'
->>>>>>> 5bf140dc72197e166681783df7a3132a8c2ea79a
 
 const layouts = { "_default": _6f6c098b }
 

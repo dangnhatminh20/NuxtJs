@@ -8,7 +8,7 @@ const VUEX_PROPERTIES = ['state', 'getters', 'actions', 'mutations']
 let store = {};
 
 (function updateModules () {
-  store = normalizeRoot(require('../store/index.js'), 'store/index.js')
+  store = normalizeRoot(require('..\\store\\index.js'), 'store/index.js')
 
   // If store is an exported method = classic mode (deprecated)
 
@@ -19,21 +19,21 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('../store/auth/actions.js'), 'auth/actions.js')
-  resolveStoreModules(require('../store/auth/getter.js'), 'auth/getter.js')
-  resolveStoreModules(require('../store/auth/mutations.js'), 'auth/mutations.js')
-  resolveStoreModules(require('../store/auth/state.js'), 'auth/state.js')
+  resolveStoreModules(require('..\\store\\auth\\actions.js'), 'auth/actions.js')
+  resolveStoreModules(require('..\\store\\auth\\getter.js'), 'auth/getter.js')
+  resolveStoreModules(require('..\\store\\auth\\mutations.js'), 'auth/mutations.js')
+  resolveStoreModules(require('..\\store\\auth\\state.js'), 'auth/state.js')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '../store/index.js',
-      '../store/auth/actions.js',
-      '../store/auth/getter.js',
-      '../store/auth/mutations.js',
-      '../store/auth/state.js',
+      '..\\store\\index.js',
+      '..\\store\\auth\\actions.js',
+      '..\\store\\auth\\getter.js',
+      '..\\store\\auth\\mutations.js',
+      '..\\store\\auth\\state.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()
