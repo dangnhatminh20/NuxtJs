@@ -5,10 +5,22 @@ const login = (context, params) => {
     //Logic: login Api -> res -> dua vao res -> Mutation (thay doi State)
     //Code bao mat chua thong tin user nen phai dung post
     axios.post("/api/auth/login", params)
-    //ngoac nhon laf method, ngoac tron la return
+    //ngoac nhon laf method, ngoac tron la method return
     .then(
         res => {
-            console.log("Success!", res);
+            if( res.data.code == 2 ){
+                context.commit("SET_MESSAGE", {
+                    message: res.data.message
+                });
+            }else if ( res.data.code == 1 ) {
+                var user = {
+                    username: res.data.username,
+                    age: res.data.age
+                }
+                context.commit("SET_USER", {
+                    user: res.data.user
+                });
+            }
         }
     ).catch(
         err => {

@@ -6,26 +6,35 @@
         <div>
           <b-tabs content-class="mt-3">
             <b-tab title="Login" active>
-              <LabeledInput :label="'Username'" :id="'username'" :onTextChange="onUserChange"/>
-              <LabeledInput :label="'Password'" :id="'password'" :onTextChange="onPasswordChange"/>
+              <span>{{message}}</span>
+              <LabeledInput
+                :label="'Username'"
+                :id="'username'"
+                :type="'text'"
+                :onTextChange="onUserChange"
+              />
+              <LabeledInput
+                :label="'Password'"
+                :id="'password'"
+                :type="'password'"
+                :onTextChange="onPasswordChange"
+              />
               <div class="checkbox">
                 <label>
                   <input type="checkbox" /> Remember me
                 </label>
               </div>
               <!-- <Button :nameButton="'Login'"/> -->
-              <button @click="doSubmit" type="btn" class="btn btn-primary pl-3">
-                Login
-              </button>
+              <button @click="doSubmit" type="btn" class="btn btn-primary pl-3">Login</button>
               <button type="submit" class="btn btn-danger pl-3">
                 <nuxtLink to="/auth/register">Register</nuxtLink>
               </button>
             </b-tab>
             <b-tab title="Register">
-              <LabeledInput :label="'Username'" :id="'username'"/>
-              <LabeledInput :label="'Email address'" :id="'emailAddress'"/>
-              <LabeledInput :label="'Password'" :id="'password'"/>
-              <LabeledInput :label="'Confirm Password'" :id="'comfirmPassword'"/>
+              <LabeledInput :label="'Username'" :id="'username'" />
+              <LabeledInput :label="'Email address'" :id="'emailAddress'" />
+              <LabeledInput :label="'Password'" :id="'password'" />
+              <LabeledInput :label="'Confirm Password'" :id="'comfirmPassword'" />
               <button type="submit" class="btn btn-primary">Register</button>
             </b-tab>
           </b-tabs>
@@ -37,39 +46,56 @@
 <script>
 import LabeledInput from "~/components/commoms/LabeledInput.vue";
 import Button from "~/components/commoms/Button.vue";
-import {mapActions} from "vuex";
+
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Login_Auth_Pages",
   components: {
-      LabeledInput,
-      Button
+    LabeledInput,
+    Button
   },
   data() {
     return {
       username: null,
-      password: null 
-    }
+      password: null
+    };
   },
+
   methods: {
     ...mapActions({
-      "login" : "auth/login" //Tim action ben trong auth de login
+      login: "auth/login" //Tim action ben trong auth de login
     }),
-    doSubmit(){
+    doSubmit() {
       this.login({
-        "username": this.username,
-        "password": this.password
+        username: this.username,
+        password: this.password
       });
     },
-    onUserChange(username){
-      this.username= username;
+    onUserChange(username) {
+      this.username = username;
     },
-    onPasswordChange(password){
-      this.password= password;
+    onPasswordChange(password) {
+      this.password = password;
+    }
+  },
+
+  computed: {
+    ...mapState("auth", {
+      message: "message",
+      loading: "loading",
+      user: "user"
+    })
+  },
+
+  watch: {
+    user(newValue){
+      this.$router.push({
+        path: "/"
+      });
     }
   }
 };
-
 </script>
 
 <style>

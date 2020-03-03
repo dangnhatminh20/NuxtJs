@@ -3,7 +3,7 @@ const SET_USER = ( state, payload ) => {
 };
 
 const SET_MESSAGE = ( state, payload ) => {
-    state.massage = payload.massage;
+    state.message = payload.message;
 };
 
 const SET_LOADING = ( state, payload ) => {
